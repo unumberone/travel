@@ -1,37 +1,39 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react';
 
 const useFetch = (url) => {
-   const [data, setData] = useState([])
-   const [error, setError] = useState(null)
-   const [loading, setLoading] = useState(false)
+   const [data, setData] = useState([]);
+   const [error, setError] = useState(null);
+   const [loading, setLoading] = useState(false);
 
    useEffect(() => {
-      const fetchData = async() => {
-         setLoading(true)
+      const fetchData = async () => {
+         setLoading(true);
+         setError(null); // Xóa lỗi trước khi gọi API
 
          try {
-            const res = await fetch(url)
+            const res = await fetch(url);
 
-            if(!res.ok) {
-               setError('Failed to fetch')
+            if (!res.ok) {
+               throw new Error('Failed to fetch'); // Dừng nếu response không thành công
             }
-            const result = await res.json()
-            setData(result.data)
-            setLoading(false)
-         } catch (error) {
-            setError(error.message)
-            setLoading(false)
-         }
-      }
 
-      fetchData()
-   },[url])
+            const result = await res.json();
+            setData(result.data); // Đặt dữ liệu từ API
+         } catch (error) {
+            setError(error.message); // Đặt lỗi nếu có
+         } finally {
+            setLoading(false); // Dừng trạng thái loading
+         }
+      };
+
+      fetchData();
+   }, [url]);
 
    return {
       data,
       error,
-      loading
-   }
-}
+      loading,
+   };
+};
 
-export default useFetch
+export default useFetch;

@@ -1,5 +1,4 @@
-const Tour = require('../controllers/tourControllers');
-
+const Tour = require('../models/tour.js');
 // Create new tour
 exports.createTour = async (req, res) => {
   try {
@@ -12,10 +11,33 @@ exports.createTour = async (req, res) => {
 };
 
 // Get all tours
-exports.getAllTours = async (req, res) => {
+exports.getAllTour = async (req, res) => {
   try {
     const tours = await Tour.find();
-    res.status(200).json(tours);
+    res.status(200).json({ tours: tours });
+    // res.status(200).json({ message: 'Get all tours' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getTourCount = async (req, res) => {
+  try {
+    const count = await Tour.countDocuments();
+    res.status(200).json({ count: count });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+exports.getlimitTour = async (req, res) => {
+  try {
+    const limit = parseInt(req.params.limit);
+    const page = parseInt(req.params.page);
+    const tours = await Tour.find()
+      .skip((page - 1) * limit)
+      .limit(limit);
+    res.status(200).json({ tours: tours });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

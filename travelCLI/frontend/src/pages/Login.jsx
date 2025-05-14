@@ -9,11 +9,11 @@ import { BASE_URL } from '../utils/config'
 
 const Login = () => {
    const [credentials, setCredentials] = useState({
-      email: undefined,
-      password: undefined
+      email: '',
+      password: ''
    })
 
-   const {dispatch} = useContext(AuthContext)
+   const { dispatch } = useContext(AuthContext)
    const navigate = useNavigate()
 
    const handleChange = e => {
@@ -23,26 +23,37 @@ const Login = () => {
    const handleClick = async e => {
       e.preventDefault()
 
-      dispatch({type:'LOGIN_START'})
+      dispatch({ type: 'LOGIN_START' })
 
       try {
          const res = await fetch(`${BASE_URL}/auth/login`, {
-            method:'post',
+            method: 'POST',
             headers: {
-               'content-type':'application/json'
+               'Content-Type': 'application/json'
             },
-            credentials:'include',
+            credentials: 'include',
             body: JSON.stringify(credentials)
          })
 
          const result = await res.json()
-         if(!res.ok) alert(result.message)
-         console.log(result.data)
+         if (!res.ok) {
+            alert(result.message)
+            dispatch({ type: 'LOGIN_FAILURE', payload: result.message })
+            return
+         }
 
-         dispatch({type:"LOGIN_SUCCESS", payload:result.data})
-         navigate('/')
-      } catch(err) {
-         dispatch({type:"LOGIN_FAILURE", payload:err.message})
+         dispatch({ type: 'LOGIN_SUCCESS', payload: result.data })
+
+         // ✅ Redirect dựa trên role
+         if (result.data.role === 0) {
+            navigate('/admin')
+         } else {
+            navigate('/')
+         }
+
+      } catch (err) {
+         dispatch({ type: 'LOGIN_FAILURE', payload: err.message })
+         alert('Login failed. Please try again.')
       }
    }
 
@@ -53,21 +64,35 @@ const Login = () => {
                <Col lg='8' className='m-auto'>
                   <div className="login__container d-flex justify-content-between">
                      <div className="login__img">
-                        <img src={loginImg} alt="" />
+                        <img src={loginImg} alt="login visual" />
                      </div>
 
                      <div className="login__form">
                         <div className="user">
-                           <img src={userIcon} alt="" />
+                           <img src={userIcon} alt="user icon" />
                         </div>
                         <h2>Login</h2>
 
                         <Form onSubmit={handleClick}>
                            <FormGroup>
-                              <input type="email" placeholder='Email' id='email' onChange={handleChange} required />
+                              <input
+                                 type="email"
+                                 placeholder='Email'
+                                 id='email'
+                                 value={credentials.email}
+                                 onChange={handleChange}
+                                 required
+                              />
                            </FormGroup>
                            <FormGroup>
-                              <input type="password" placeholder='Password' id='password' onChange={handleChange} required />
+                              <input
+                                 type="password"
+                                 placeholder='Password'
+                                 id='password'
+                                 value={credentials.password}
+                                 onChange={handleChange}
+                                 required
+                              />
                            </FormGroup>
                            <Button className='btn secondary__btn auth__btn' type='submit'>Login</Button>
                         </Form>

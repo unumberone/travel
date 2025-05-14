@@ -1,68 +1,134 @@
-import React, { useState, useEffect } from 'react'
-import CommonSection from '../shared/CommonSection'
-// import tourData from '../assets/data/tours'
-import '../styles/tour.css'
-import TourCard from './../shared/TourCard'
-import SearchBar from './../shared/SearchBar'
-import Newsletter from './../shared/Newsletter'
-import { Col, Container, Row } from 'reactstrap'
-import useFetch from '../hooks/useFetch'
-import { BASE_URL } from '../utils/config'
-
+import React, { useState, useEffect } from "react";
+import CommonSection from "../shared/CommonSection";
+import "../styles/tour.css";
+import TourCard from "./../shared/TourCard";
+import Newsletter from "./../shared/Newsletter";
+import { Col, Container, Row } from "reactstrap";
+import { BASE_URL } from "../utils/config";
 
 const Tours = () => {
-   const [pageCount, setPageCount] = useState(0)
-   const [page, setPage] = useState(0)
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
+  const [tours, setTours] = useState([]);
+  const [lstTourRender, setLstTourRender] = useState([]);
+  const limit = 6;
 
-   const { data: tours, loading, error } = useFetch(`${BASE_URL}/tours?page=${page}`)
-   const { data: tourCount } = useFetch(`${BASE_URL}/tours/search/getTourCount`)
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/tours`);
+        const data = await response.json();
 
-   useEffect(() => {
-      const pages = Math.ceil(tourCount / 8)
-      setPageCount(pages)
-      window.scrollTo(0,0)
-   }, [page, tourCount, tours])
+        setTours(data.tours);
+        setPageCount(Math.ceil(data.tours.length / limit));
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      }
+    };
 
-   return (
-      <>
-         <CommonSection title={"All Tours"} />
-         <section>
-            <Container>
-               <Row>
-                  <SearchBar />
-               </Row>
-            </Container>
-         </section>
+    fetchTours();
+  }, []);
 
-         <section className='pt-0'>
-            <Container>
-               {loading && <h4 className='text-center pt-5'>LOADING..........</h4>}
-               {error && <h4 className='text-center pt-5'>{error}</h4>}
-               {
-                  !loading && !error &&
-                  <Row>
-                     {
-                        tours?.map(tour => (<Col lg='3' md='6' sm='6' className='mb-4' key={tour._id}> <TourCard tour={tour} /> </Col>))
-                     }
+  useEffect(() => {
+    const lst = tours.slice(page * limit, (page + 1) * limit);
+    setLstTourRender(lst);
+  }, [page, tours]);
 
-                     <Col lg='12'>
-                        <div className="pagination d-flex align-items-center justify-content-center mt-4 gap-3">
-                           {[...Array(pageCount).keys()].map(number => (
-                              <span key={number} onClick={() => setPage(number)}
-                                 className={page === number ? 'active__page' : ''}
-                              >
-                                 {number + 1}
-                              </span>
-                           ))}
-                        </div>
-                     </Col>
-                  </Row>
-               }
-            </Container>
-         </section>
-         <Newsletter />
-      </>
-   )
-}
+  return (
+    <>
+      <CommonSection title={"All Tours"} />
 
-export default Tours
+      <section>
+        <Container>
+          <Row>
+          
+            <Col lg="3">
+              <div className="filter-sidebar p-3 border rounded bg-white">
+                <div className="filter-group mb-3">
+                  <h6>Ngân sách</h6>
+                  <div className="btn-group-wrap">
+                    <button className="btn btn-outline-secondary">Dưới 5 triệu</button>
+                    <button className="btn btn-outline-secondary">Từ 5 - 10 triệu</button>
+                    <button className="btn btn-outline-secondary">Từ 10 - 20 triệu</button>
+                    <button className="btn btn-outline-secondary">Trên 20 triệu</button>
+                  </div>
+                </div>
+
+                <div className="filter-group mb-3">
+                  <h6>Điểm khởi hành</h6>
+                  <select className="form-select">
+                    <option>Tất cả</option>
+                    <option>TP. Hồ Chí Minh</option>
+                    <option>Hà Nội</option>
+                  </select>
+                </div>
+
+                <div className="filter-group mb-3">
+                  <h6>Điểm đến</h6>
+                  <select className="form-select">
+                    <option>New Zealand</option>
+                    <option>Úc</option>
+                  </select>
+                </div>
+
+                <div className="filter-group mb-3">
+                  <h6>Ngày đi</h6>
+                  <input type="date" className="form-control" />
+                </div>
+
+                <div className="filter-group mb-3">
+                  <h6>Dòng tour</h6>
+                  <div className="btn-group-wrap">
+                    <button className="btn btn-outline-secondary">Cao cấp</button>
+                    <button className="btn btn-outline-secondary">Tiêu chuẩn</button>
+                    <button className="btn btn-outline-secondary">Tiết kiệm</button>
+                    <button className="btn btn-outline-secondary">Giá tốt</button>
+                  </div>
+                </div>
+
+                <div className="filter-group mb-4">
+                  <h6>Phương tiện</h6>
+                  <div className="btn-group-wrap">
+                    <button className="btn btn-outline-secondary">Xe</button>
+                    <button className="btn btn-outline-secondary">Máy bay</button>
+                  </div>
+                </div>
+
+                <button className="btn btn-primary w-100">Áp dụng</button>
+              </div>
+            </Col>
+
+            {/* Danh sách tour */}
+            <Col lg="9">
+              {lstTourRender.length > 0 && (
+                <>
+                  {lstTourRender.map((tour) => (
+                    <div className="mb-4" key={tour._id}>
+                      <TourCard tour={tour} />
+                    </div>
+                  ))}
+
+                  <div className="pagination d-flex align-items-center justify-content-center mt-4 gap-3">
+                    {[...Array(pageCount).keys()].map((number) => (
+                      <span
+                        key={number}
+                        onClick={() => setPage(number)}
+                        className={page === number ? "active__page" : ""}
+                      >
+                        {number + 1}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      <Newsletter />
+    </>
+  );
+};
+
+export default Tours;
