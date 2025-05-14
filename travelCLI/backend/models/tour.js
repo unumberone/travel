@@ -1,18 +1,3 @@
-// import mongoose from 'mongoose'
-
-// const TourSchema = new mongoose.Schema({
-//   ten: String,
-//   thanh_pho: String,
-//   danh_gia: Number,
-//   so_luot_danh_gia: Number,
-//   hinh_anh: String,
-//   gia_tien: Number,
-//   gia_goc: Number,
-//   uu_dai: Number
-// })
-
-// export default mongoose.model('Tour', TourSchema)
-
 
 const mongoose = require('mongoose');
 

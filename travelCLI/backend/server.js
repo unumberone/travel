@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const tourRoutes = require('./routes/tourRoutes'); // Import route tours
+const admin = require('./routes/authRoutes'); // Import route auth
 
 // Load .env file
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cors());
 
 // Kết nối các route
 app.use('/api/tours', tourRoutes); // Route cho tours
+app.use('/api/admin', admin); // Route cho admin
 
 // Xử lý route không tồn tại
 app.use((req, res, next) => {
@@ -28,5 +30,5 @@ app.use((req, res, next) => {
 // Khởi chạy server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
