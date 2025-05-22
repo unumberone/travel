@@ -13,7 +13,7 @@ const adminSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  collection: 'admin' 
+  collection: 'admins' 
 });
 
 

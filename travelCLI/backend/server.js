@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const tourRoutes = require('./routes/tourRoutes'); // Import route tours
-const admin = require('./routes/authRoutes'); // Import route auth
+const tourRoutes = require('./routes/tourRoutes'); 
+const authRoutes = require('./routes/authRoutes')// Import route tours
+
 
 // Load .env file
 dotenv.config();
@@ -19,8 +20,9 @@ app.use(express.json());
 app.use(cors());
 
 // Kết nối các route
-app.use('/api/tours', tourRoutes); // Route cho tours
-app.use('/api/admin', admin); // Route cho admin
+app.use('/api/tours', tourRoutes);
+app.use('/api/auth', authRoutes); // Route cho tours
+
 
 // Xử lý route không tồn tại
 app.use((req, res, next) => {

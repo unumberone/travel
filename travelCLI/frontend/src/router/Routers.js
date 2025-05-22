@@ -9,6 +9,7 @@ import SearchResultList from './../pages/SearchResultList'
 import TourDetails from './../pages/TourDetails'
 import Tours from './../pages/Tours'
 import Admin from '../components/Admin/Admin'  
+import TourFullDetails from '../shared/TourFullDetails'
 
 
 const Routers = () => {
@@ -24,6 +25,8 @@ const Routers = () => {
          <Route path='/about' element={<About/>} />
          <Route path='/thank-you' element={<ThankYou/>} />
          <Route path='/tours/search' element={<SearchResultList/>} />
+         <Route path='/tour-full-details/:id' element={<TourFullDetails />} /> 
+
       </Routes>
    )
 }

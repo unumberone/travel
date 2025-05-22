@@ -1,7 +1,7 @@
-import User from '../models/admin.js';
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
+const User = require('../models/user.js');
 
-export const registerUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
   try {
     const { email, password, role = 1 } = req.body;
 
@@ -20,7 +20,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -28,6 +28,7 @@ export const loginUser = async (req, res) => {
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     const isValid = bcrypt.compareSync(password, user.password);
+    // console.log(isValid, password, user.password);
     if (!isValid) return res.status(401).json({ message: 'Incorrect password' });
 
     // role-based redirect logic suggestion (handled on frontend)
@@ -36,14 +37,14 @@ export const loginUser = async (req, res) => {
       data: {
         id: user._id,
         email: user.email,
-        role: user.role
+        // role: user.role
       }
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
-export const logoutUser = async (req, res) => {
+exports.logoutUser = async (req, res) => {
   try {
     // Clear the session or token here if applicable
     res.status(200).json({ message: 'Logout successful' });

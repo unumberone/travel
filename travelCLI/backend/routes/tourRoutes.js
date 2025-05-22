@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getAllTour } = require('../controllers/tourControllers');
+const { getAllTour, filterTours, updateAllTour, getTour} = require('../controllers/tourControllers');
 
 router.get('/', getAllTour); // Route để lấy danh sách các tour
-// router.get('count', getTourCount); // Route để lấy số lượng tour
-// router.get('/getLimitTour', getlimitTour); // Route để lấy danh sách tour với phân trang
+router.post('/filter', filterTours)
+router.post('/updateAllTour', updateAllTour) // Route để cập nhật tất cả tour
+router.get('/:id', getTour); // Route để lấy thông tin chi tiết của một tour theo ID
 
 module.exports = router;

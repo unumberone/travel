@@ -31,9 +31,11 @@ const Login = () => {
             headers: {
                'Content-Type': 'application/json'
             },
-            credentials: 'include',
+            // credentials: 'include',
             body: JSON.stringify(credentials)
          })
+
+         console.log(`${BASE_URL}/auth/login`)
 
          const result = await res.json()
          if (!res.ok) {
@@ -45,11 +47,11 @@ const Login = () => {
          dispatch({ type: 'LOGIN_SUCCESS', payload: result.data })
 
          // ✅ Redirect dựa trên role
-         if (result.data.role === 0) {
-            navigate('/admin')
-         } else {
+         // if (result.data.role === 0) {
+         //    navigate('/auth')
+         // } else {
             navigate('/')
-         }
+         // }
 
       } catch (err) {
          dispatch({ type: 'LOGIN_FAILURE', payload: err.message })

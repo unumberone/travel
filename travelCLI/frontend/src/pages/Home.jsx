@@ -6,11 +6,9 @@ import heroImg02 from '../assets/images/hero-img02.jpg'
 import heroVideo from '../assets/images/hero-video.mp4'
 import worldImg from '../assets/images/world.png'
 import experienceImg from '../assets/images/experience.png'
-
 import Subtitle from './../shared/subtitle'
 import SearchBar from './../shared/SearchBar'
 import ServiceList from '../services/ServiceList'
-import FeaturedTourList from '../components/Featured-tours/FeaturedTourList'
 import MasonryImagesGallery from '../components/Image-gallery/MasonryImagesGallery'
 import Testimonials from '../components/Testimonial/Testimonials'
 import NewsLetter from '../shared/Newsletter'
@@ -80,7 +78,7 @@ const Home = () => {
                   <Subtitle subtitle={'Explore'} />
                   <h2 className='featured__tour-title'>Our featured tours</h2>
                </Col>
-               <FeaturedTourList />
+               
             </Row>
          </Container>
       </section>

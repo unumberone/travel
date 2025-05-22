@@ -25,6 +25,9 @@ const TourSchema = new mongoose.Schema({
   hinh_anh: [{ type: String, required: true }],
   danh_gia: { type: [ReviewSchema], required: true }, // Mảng các đánh giá
   tien_ich: [{ type: String, required: true }], // Mảng tiện ích
+  so_nguoi: { type: Number, required: true },
+  con_phong: { type: Boolean, required: true },
+  ngay_dat_phong: [{ type: Date }],
 });
 
 module.exports = mongoose.model('Tour', TourSchema);
