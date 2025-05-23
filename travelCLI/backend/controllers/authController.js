@@ -3,18 +3,20 @@ const User = require('../models/user.js');
 
 exports.registerUser = async (req, res) => {
   try {
-    const { email, password, role = 1 } = req.body;
+    const { userName, email, password, role = 1 } = req.body;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'Email already exists' });
+    const existingUser = await User.findOne({
+      $or: [{ email }, { userName }]
+    });
+    if (existingUser) return res.status(400).json({ message: 'Email or username already exists' });
 
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
 
-    const newUser = new User({ email, password: hashedPassword, role });
+    const newUser = new User({ email, password: hashedPassword, role, userName });
     await newUser.save();
 
-    res.status(201).json({ message: 'User registered successfully', data: { email, role } });
+    res.status(201).json({ message: 'User registered successfully', data: { email, role, userName } });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }

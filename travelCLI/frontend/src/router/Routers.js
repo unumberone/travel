@@ -10,6 +10,9 @@ import TourDetails from './../pages/TourDetails'
 import Tours from './../pages/Tours'
 import Admin from '../components/Admin/Admin'  
 import TourFullDetails from '../shared/TourFullDetails'
+import Payment from '../pages/Payment'
+import Bill from '../pages/Bill'
+import History from '../pages/History'
 
 
 const Routers = () => {
@@ -26,7 +29,9 @@ const Routers = () => {
          <Route path='/thank-you' element={<ThankYou/>} />
          <Route path='/tours/search' element={<SearchResultList/>} />
          <Route path='/tour-full-details/:id' element={<TourFullDetails />} /> 
-
+         <Route path='/payment' element={<Payment />} />
+         <Route path='/bill/:bookingId' element={<Bill />} />
+         <Route path='/history' element={<History />} />
       </Routes>
    )
 }

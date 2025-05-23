@@ -3,8 +3,9 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const tourRoutes = require('./routes/tourRoutes'); 
-const authRoutes = require('./routes/authRoutes')// Import route tours
-
+const authRoutes = require('./routes/authRoutes');
+const bookingRoutes = require('./routes/bookingRoutes'); // Route cho đặt phòng
+const momoRoutes = require('./routes/momoRoutes'); // Route cho thanh toán MoMo
 
 // Load .env file
 dotenv.config();
@@ -22,6 +23,8 @@ app.use(cors());
 // Kết nối các route
 app.use('/api/tours', tourRoutes);
 app.use('/api/auth', authRoutes); // Route cho tours
+app.use('/api/booking', bookingRoutes); // Route cho đặt phòng
+app.use('/api/momo', momoRoutes); // Route cho thanh toán MoMo
 
 
 // Xử lý route không tồn tại

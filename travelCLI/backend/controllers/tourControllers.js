@@ -130,7 +130,7 @@ exports.filterTours = async (req, res) => {
     if (so_nguoi) filter.so_nguoi = { $gte: Number(so_nguoi) };
 
     // Lọc ngày chưa bị đặt
-    if (ngay_dat_phong) {
+    if (ngay_dat_phong && ngay_dat_phong.length > 0) {
       // Chuyển về dạng Date để so sánh chính xác
       const date = new Date(ngay_dat_phong);
       // Tìm các tour mà ngày này KHÔNG nằm trong mảng ngay_dat_phong

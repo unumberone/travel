@@ -1,0 +1,126 @@
+:root {
+  --day-width: 48px;
+  --day-height: 56px;
+}
+
+.rdrMonthsHorizontal {
+  display: flex;
+  gap: 24px;
+  /* width: 100%; */
+  justify-content: center;
+}
+
+.rdrMonth {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  /* min-width: calc(var(--day-width) * 7 + 12px); 7 ngày + gap */
+  box-shadow: 0 2px 8px rgba(60,60,60,0.04);
+}
+
+.rdrMonthName {
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.rdrWeekDays {
+  display: grid;
+  grid-template-columns: repeat(7, var(--day-width));
+  margin-bottom: 4px;
+  gap: 2px;
+  width: 100%;
+}
+
+.rdrWeekDay {
+  width: var(--day-width);
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  padding: 0;
+  height: 24px;
+  line-height: 24px;
+}
+
+.rdrDays {
+  display: grid;
+  grid-template-columns: repeat(7, var(--day-width));
+  gap: 2px;
+  width: 100%;
+}
+
+.rdrDay {
+  width: var(--day-width);
+  height: var(--day-height);
+  max-width: var(--day-width);
+  margin: 0 auto;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rdrDay:hover:not(.rdrDayPassive):not(:disabled) {
+  background: #e6f0ff;
+}
+
+.rdrDayPassive {
+  background: #f5f5f5 !important;
+  color: #bbb !important;
+  cursor: not-allowed;
+}
+
+.rdrDayWeekend {
+  color: #3d91ff !important;
+}
+
+.rdrInRange {
+  background: #e6f0ff !important;
+}
+
+.rdrStartEdge,
+.rdrEndEdge {
+  background: #3d91ff !important;
+  color: #fff !important;
+}
+
+.rdrDayNumber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.MuiBox-root.css-1qi084o {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.rdrNavBtn {
+  border: none;
+  background: #f5f5f5;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  color: #3d91ff;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rdrNavBtn:hover {
+  background: #e6f0ff;
+}

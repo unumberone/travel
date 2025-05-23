@@ -14,7 +14,7 @@ const Register = () => {
       password: undefined
    })
 
-   const {dispatch} = useContext(AuthContext)
+   const { dispatch } = useContext(AuthContext)
    const navigate = useNavigate()
 
    const handleChange = e => {
@@ -26,19 +26,20 @@ const Register = () => {
 
       try {
          const res = await fetch(`${BASE_URL}/auth/register`, {
-            method:'post',
+            method: 'post',
             headers: {
-               'content-type':'application/json'
+               'content-type': 'application/json'
             },
             body: JSON.stringify(credentials)
          })
          const result = await res.json()
 
-         if(!res.ok) alert(result.message)
-
-         dispatch({type:'REGISTER_SUCCESS'})
-         navigate('/login')
-      } catch(err) {
+         if (!res.ok) alert(result.message)
+         else {
+            dispatch({ type: 'REGISTER_SUCCESS' })
+            navigate('/login')
+         }
+      } catch (err) {
          alert(err.message)
       }
    }
@@ -61,7 +62,7 @@ const Register = () => {
 
                         <Form onSubmit={handleClick}>
                            <FormGroup>
-                              <input type="text" placeholder='Username' id='username' onChange={handleChange} required />
+                              <input type="text" placeholder='Username' id='userName' onChange={handleChange} required />
                            </FormGroup>
                            <FormGroup>
                               <input type="email" placeholder='Email' id='email' onChange={handleChange} required />

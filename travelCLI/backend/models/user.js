@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
   userName: {
     type: String,
     required: true,
@@ -21,6 +20,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null
   },
+}, {
+  _id: true
 });
 
 

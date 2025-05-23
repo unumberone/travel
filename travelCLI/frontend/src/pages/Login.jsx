@@ -35,8 +35,6 @@ const Login = () => {
             body: JSON.stringify(credentials)
          })
 
-         console.log(`${BASE_URL}/auth/login`)
-
          const result = await res.json()
          if (!res.ok) {
             alert(result.message)
