@@ -85,8 +85,7 @@ exports.createBooking = async (req, res) => {
     let payUrl = null;
     try {
       payUrl = await momoPayment({
-        amount: 1000,
-        // amount: paymentType === "full" ? totalPrice : Math.floor(totalPrice / 2),
+        amount: paymentType === "full" ? totalPrice : Math.floor(totalPrice / 2),
         orderId: newBooking._id.toString(),
         orderInfo: `Thanh toán tour ${tour.ten} (${tour._id})`,
         redirectUrl: `http://localhost:3000/bill/${newBooking._id}`,
