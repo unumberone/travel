@@ -17,6 +17,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from '../utils/config'
 import DatePicker from "../components/DatePicker/DatePicker";
+import { getNights } from "../utils/booking";
 
 const Payment = () => {
     const location = useLocation();
@@ -57,13 +58,6 @@ const Payment = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
-    // Hàm tính số đêm
-    function getNights(from, to) {
-        if (!from || !to) return 0;
-        const ms = to.setHours(0, 0, 0, 0) - from.setHours(0, 0, 0, 0);
-        return Math.max(1, Math.round(ms / (1000 * 60 * 60 * 24)));
-    }
 
     // Khi chọn lại ngày, tính lại tổng tiền
     const handleSelectDate = (range) => {
@@ -305,7 +299,7 @@ const Payment = () => {
                             <div className="mb-2">
                                 <b>Giá phòng tiêu chuẩn:</b>
                                 <ul className="mb-0">
-                                    <li>Tiêu chuẩn cho 2 người lớn & 1 trẻ em dưới 6 tuổi</li>
+                                    <li>Tiêu chuẩn cho <span>{tour.so_nguoi}</span> người lớn</li>
                                     <li>Không nhận vượt quá tiêu chuẩn</li>
                                 </ul>
                             </div>

@@ -68,11 +68,23 @@ const TourFullDetails = () => {
   const handleBooking = () => {
     const user = localStorage.getItem("user");
     const userId = user ? JSON.parse(user).id : null;
+
+    // Tạo đối tượng Date từ checkIn và checkOut
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    checkInDate.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00
+    checkOutDate.setHours(0, 0, 0, 0);
+
+    // Cộng thêm 7 tiếng
+    checkInDate.setDate(checkInDate.getDate() + 1);
+    checkOutDate.setDate(checkOutDate.getDate() + 1);
+
     navigate("/payment", {
       state: {
         tour,
-        checkIn,
-        checkOut,
+        checkIn: checkInDate,
+        checkOut: checkOutDate,
         guests,
         totalPrice,
         userId
