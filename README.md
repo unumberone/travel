@@ -1,44 +1,52 @@
-Dưới đây là hướng dẫn đơn giản để cài đặt và sử dụng **Ngrok** với cổng 5000.
+# Chatbot Deployment with Flask and JavaScript
 
----
+In this tutorial we deploy the chatbot I created in [this](https://github.com/python-engineer/pytorch-chatbot) tutorial with Flask and JavaScript.
 
-## **Hướng Dẫn Sử Dụng Ngrok**
+This gives 2 deployment options:
+- Deploy within Flask app with jinja2 template
+- Serve only the Flask prediction API. The used html and javascript files can be included in any Frontend application (with only a slight modification) and can run completely separate from the Flask App then.
 
-### **1. Cài Đặt Ngrok**
+## Initial Setup:
+This repo currently contains the starter files.
 
-1. **Tải Ngrok** từ [ngrok.com/download](https://ngrok.com/download).
-2. **Giải nén**:
+Clone repo and create a virtual environment
+```
+$ git clone https://github.com/python-engineer/chatbot-deployment.git
+$ cd chatbot-deployment
+$ python3 -m venv venv
+$ . venv/bin/activate
+```
+Install dependencies
+```
+$ (venv) pip install Flask torch torchvision nltk
+```
+Install nltk package
+```
+$ (venv) python
+>>> import nltk
+>>> nltk.download('punkt')
+```
+Modify `intents.json` with different intents and responses for your Chatbot
 
-   * **Windows**: Giải nén và đặt tệp `ngrok.exe` vào thư mục dễ truy cập (ví dụ: `C:\ngrok`).
-   * **macOS/Linux**: Giải nén và di chuyển tệp `ngrok` vào `/usr/local/bin`.
+Run
+```
+$ (venv) python train.py
+```
+This will dump data.pth file. And then run
+the following command to test it in the console.
+```
+$ (venv) python chat.py
+```
 
----
+Now for deployment follow my tutorial to implement `app.py` and `app.js`.
 
-### **2. Thiết Lập Tài Khoản**
+## Watch the Tutorial
+[![Alt text](https://img.youtube.com/vi/a37BL0stIuM/hqdefault.jpg)](https://youtu.be/a37BL0stIuM)  
+[https://youtu.be/a37BL0stIuM](https://youtu.be/a37BL0stIuM)
 
-1. Đăng ký hoặc đăng nhập tại [ngrok.com](https://ngrok.com).
-2. Lấy **Authtoken** từ trang dashboard.
-3. Thêm Authtoken vào Ngrok:
+## Note
+In the video we implement the first approach using jinja2 templates within our Flask app. Only slight modifications are needed to run the frontend separately. I put the final frontend code for a standalone frontend application in the [standalone-frontend](/standalone-frontend) folder.
 
-   ```bash
-   ngrok config add-authtoken <your_authtoken>
-   ```
-
----
-
-### **3. Sử Dụng Ngrok**
-
-1. Chạy ứng dụng cục bộ của bạn trên cổng 5000 (ví dụ: Flask, Node.js).
-2. Mở terminal và chạy:
-
-   ```bash
-   ngrok http 5000
-   ```
-3. Ngrok sẽ hiển thị một URL công khai (dạng `https://<subdomain>.ngrok.io`), sử dụng URL này để truy cập ứng dụng của bạn từ bất kỳ đâu.
-
----
-
-**Vậy là xong!** Ngrok đã sẵn sàng để bạn sử dụng. 😊
-
-### **4. Thay đường dẫn Ngrok**
-Thay https://ea44-2001-ee0-7858-24b0-1c63-8a2a-635-85b5.ngrok-free.app trong file travelCLI\backend\middleware\momoPaymentMiddleware.js bằng url của ngrok
+## Credits:
+This repo was used for the frontend code:
+https://github.com/hitchcliff/front-end-chatjs
