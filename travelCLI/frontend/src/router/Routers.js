@@ -15,6 +15,8 @@ import Bill from '../pages/Bill'
 import History from '../pages/History'
 
 
+
+
 const Routers = () => {
    return (
       <Routes>
@@ -31,7 +33,10 @@ const Routers = () => {
          <Route path='/tour-full-details/:id' element={<TourFullDetails />} /> 
          <Route path='/payment' element={<Payment />} />
          <Route path='/bill/:bookingId' element={<Bill />} />
-         <Route path='/history' element={<History />} />
+         <Route path='/history' element={<History />} />\
+         {/* Redirect all other paths to home */}
+
+       
       </Routes>
    )
 }

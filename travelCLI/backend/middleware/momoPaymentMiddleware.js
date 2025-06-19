@@ -16,7 +16,7 @@ async function momoPayment({
   orderId,
   orderInfo,
   redirectUrl, // URL redirect sau thanh toán
-  ipnUrl = "https://ea44-2001-ee0-7858-24b0-1c63-8a2a-635-85b5.ngrok-free.app/api/momo/callback" // URL nhận notify từ MoMo
+  ipnUrl = "https://fb8d-210-245-71-149.ngrok-free.app/api/momo/callback" // URL nhận notify từ MoMo
 }) {
   const partnerCode = "MOMO";
   const accessKey = "F8BBA842ECF85";

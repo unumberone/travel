@@ -4,6 +4,7 @@ import f1 from '../assets/images/business-travel.png';
 import f2 from '../assets/images/travel-agent.png';   
 import f3 from '../assets/images/sp.png';    
 import f4 from '../assets/images/web.png';     
+import anh from '../assets/images/anh.jpg'; 
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const About = () => {
@@ -125,7 +126,7 @@ const About = () => {
 
       {/* Timeline */}
       <div className="timeline">
-        <img src="/images/timeline.png" alt="Company timeline" />
+        <img src={anh} alt="Company timeline" />
       </div>
 
       {/* Footer description */}

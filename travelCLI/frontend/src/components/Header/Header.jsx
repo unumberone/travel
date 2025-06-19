@@ -115,7 +115,7 @@ const Header = () => {
                                        <div style={{ fontSize: 13, color: "#888" }}>{user.email}</div>
                                     </div>
                                     <Link
-                                       to="/profile"
+                                       to="/#"
                                        className="dropdown-item px-3 py-2"
                                        style={{ display: "block", color: "#222", textDecoration: "none" }}
                                        onClick={() => setDropdownOpen(false)}

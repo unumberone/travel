@@ -3,14 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.27.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@google/genai": "^1.4.0",
+    "@google/generative-ai": "^0.24.1",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@popperjs/core": "^2.11.8",
     "@react-icons/all-files": "^4.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "all": "^0.0.0",
+    "axios": "^1.9.0",
     "bootstrap": "^5.2.3",
     "json": "^11.0.0",
+    "lucide-react": "^0.513.0",
+    "openai": "^5.1.1",
+    "papaparse": "^5.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.6",
     "react-icons": "^5.5.0",
     "react-responsive-masonry": "^2.1.7",
     "react-router-dom": "^6.6.1",
@@ -44,5 +58,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.2.0"
   }
 }
